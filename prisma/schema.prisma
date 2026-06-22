@@ -1,0 +1,150 @@
+// Harari Region Professional Competence Certificate (PCC) Portal
+// Prisma schema - SQLite for portability
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id              String   @id @default(cuid())
+  email           String   @unique
+  passwordHash    String
+  fullName        String
+  phoneNumber     String?
+  nationalId      String?  @unique
+  region          String   @default("Harari")
+  city            String?  // e.g., Harar, Dire Dawa (close to Harari)
+  woreda          String?  // sub-district
+  kebele          String?  // neighborhood
+  role            String   @default("APPLICANT") // APPLICANT | REVIEWER | ADMIN
+  // Reviewer-specific
+  officeName      String?  // e.g., "Harari Trade & Investment Bureau"
+  jobTitle        String?
+  isActive        Boolean  @default(true)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  applications    Application[] @relation("ApplicationApplicant")
+  reviewedApps    Application[] @relation("ReviewerApplications")
+  issuedCerts     Certificate[] @relation("CertificateIssuer")
+  auditLogs       AuditLog[]
+  notifications   Notification[]
+}
+
+model Application {
+  id              String   @id @default(cuid())
+  referenceNumber String   @unique // e.g., HRS-PCC-2026-0001
+  applicantId     String
+  reviewerId      String?
+
+  // Stage 1: Personal Information
+  fullName        String
+  dateOfBirth     String
+  gender          String? // M | F
+  nationality     String  @default("Ethiopian")
+  nationalId      String
+  phoneNumber     String
+  email           String
+  region          String  @default("Harari")
+  city            String
+  woreda          String?
+  kebele          String?
+  addressDetail   String?
+
+  // Stage 2: Business Information
+  businessName    String
+  businessType    String  // Trade, Services, Manufacturing, Agriculture, etc.
+  businessSector  String  // Food & Beverage, Retail, Transport, etc.
+  businessAddress String
+  expectedStaff   Int     @default(1)
+  capitalETB      Float?
+  description     String?
+
+  // Stage 3: Competence Assessment (JSON stored as string)
+  assessmentScore Int     @default(0)
+  assessmentTotal Int     @default(0)
+  assessmentData  String? // JSON: { questionId, answer, correct }[]
+  assessmentPassed Boolean @default(false)
+
+  // Workflow status
+  status          String  @default("DRAFT")
+  // DRAFT | SUBMITTED | UNDER_REVIEW | APPROVED | REJECTED | CERTIFICATE_ISSUED
+
+  submittedAt     DateTime?
+  reviewedAt      DateTime?
+  decisionNote    String? // reviewer note to applicant
+
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  applicant       User     @relation("ApplicationApplicant", fields: [applicantId], references: [id], onDelete: Cascade)
+  reviewer        User?    @relation("ReviewerApplications", fields: [reviewerId], references: [id])
+  documents       Document[]
+  certificate     Certificate?
+}
+
+model Document {
+  id              String   @id @default(cuid())
+  applicationId   String
+  documentType    String   // NATIONAL_ID | BUSINESS_PLAN | HEALTH_CERT | EDUCATION | TIN | LEASE_AGREEMENT | OTHER
+  fileName        String
+  fileType        String   // mime type
+  fileSize        Int
+  fileData        String   // base64-encoded content
+  uploadedAt      DateTime @default(now())
+
+  application     Application @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+}
+
+model Certificate {
+  id              String   @id @default(cuid())
+  certificateNumber String @unique // e.g., HRS-PCC-CERT-2026-0001
+  applicationId   String   @unique
+  issuedById      String
+  issuedAt        DateTime @default(now())
+  validUntil      DateTime
+  status          String   @default("ACTIVE") // ACTIVE | REVOKED | EXPIRED
+  revokeReason    String?
+  revokedAt       DateTime?
+
+  application     Application @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+  issuedBy        User        @relation("CertificateIssuer", fields: [issuedById], references: [id])
+}
+
+model AuditLog {
+  id              String   @id @default(cuid())
+  userId          String?
+  action          String   // LOGIN, LOGOUT, CREATE_APP, SUBMIT_APP, REVIEW_APP, ISSUE_CERT, REVOKE_CERT
+  targetType      String?  // Application, Certificate, User
+  targetId        String?
+  details         String?
+  ipAddress       String?
+  createdAt       DateTime @default(now())
+
+  user            User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+}
+
+model Notification {
+  id              String   @id @default(cuid())
+  userId          String
+  title           String
+  message         String
+  type            String   @default("INFO") // INFO | SUCCESS | WARNING | ERROR
+  read            Boolean  @default(false)
+  link            String?
+  createdAt       DateTime @default(now())
+
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model SystemSetting {
+  id              String   @id @default(cuid())
+  key             String   @unique
+  value           String
+  updatedAt       DateTime @updatedAt
+}

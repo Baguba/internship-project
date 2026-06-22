@@ -1,0 +1,296 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-display);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  /* Harari brand colors */
+  --color-harari-purple: var(--harari-purple);
+  --color-harari-gold: var(--harari-gold);
+  --color-harari-terracotta: var(--harari-terracotta);
+  --color-harari-cream: var(--harari-cream);
+  --color-harari-green: var(--harari-green);
+  --color-harari-indigo: var(--harari-indigo);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+:root {
+  --radius: 0.625rem;
+  /* Harari cultural palette — inspired by the colorful Harar Jugol walls */
+  --harari-purple: #5B2A86;       /* deep royal purple from Harari dresses */
+  --harari-gold: #D4A537;         /* warm ochre/gold */
+  --harari-terracotta: #B5471A;   /* earthy red-brown */
+  --harari-cream: #FBF3E2;        /* ivory background */
+  --harari-green: #2E7A5A;        /* Islamic green accent */
+  --harari-indigo: #1E3A5F;       /* deep evening blue */
+
+  --background: oklch(0.985 0.012 80);    /* warm cream */
+  --foreground: oklch(0.22 0.04 290);     /* deep purple-ink */
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.22 0.04 290);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.22 0.04 290);
+  --primary: oklch(0.42 0.18 305);        /* harari purple */
+  --primary-foreground: oklch(0.98 0.02 90);
+  --secondary: oklch(0.95 0.03 80);
+  --secondary-foreground: oklch(0.28 0.08 305);
+  --muted: oklch(0.96 0.015 80);
+  --muted-foreground: oklch(0.5 0.03 290);
+  --accent: oklch(0.82 0.13 85);          /* gold */
+  --accent-foreground: oklch(0.28 0.10 305);
+  --destructive: oklch(0.58 0.22 25);
+  --border: oklch(0.88 0.04 80);
+  --input: oklch(0.9 0.02 80);
+  --ring: oklch(0.5 0.15 305);
+  --chart-1: oklch(0.5 0.18 305);   /* purple */
+  --chart-2: oklch(0.78 0.15 85);   /* gold */
+  --chart-3: oklch(0.55 0.18 30);   /* terracotta */
+  --chart-4: oklch(0.55 0.13 160);  /* green */
+  --chart-5: oklch(0.45 0.12 250);  /* indigo */
+  --sidebar: oklch(0.985 0.012 80);
+  --sidebar-foreground: oklch(0.22 0.04 290);
+  --sidebar-primary: oklch(0.42 0.18 305);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.95 0.03 80);
+  --sidebar-accent-foreground: oklch(0.22 0.04 290);
+  --sidebar-border: oklch(0.88 0.04 80);
+  --sidebar-ring: oklch(0.5 0.15 305);
+}
+
+.dark {
+  --background: oklch(0.18 0.03 290);
+  --foreground: oklch(0.96 0.02 80);
+  --card: oklch(0.22 0.04 290);
+  --card-foreground: oklch(0.96 0.02 80);
+  --popover: oklch(0.22 0.04 290);
+  --popover-foreground: oklch(0.96 0.02 80);
+  --primary: oklch(0.62 0.20 305);
+  --primary-foreground: oklch(0.15 0.03 290);
+  --secondary: oklch(0.28 0.05 290);
+  --secondary-foreground: oklch(0.96 0.02 80);
+  --muted: oklch(0.28 0.05 290);
+  --muted-foreground: oklch(0.72 0.03 80);
+  --accent: oklch(0.68 0.15 85);
+  --accent-foreground: oklch(0.15 0.03 290);
+  --destructive: oklch(0.7 0.2 25);
+  --border: oklch(1 0 0 / 12%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.6 0.15 305);
+  --sidebar: oklch(0.2 0.04 290);
+  --sidebar-foreground: oklch(0.96 0.02 80);
+  --sidebar-primary: oklch(0.62 0.20 305);
+  --sidebar-primary-foreground: oklch(0.15 0.03 290);
+  --sidebar-accent: oklch(0.28 0.05 290);
+  --sidebar-accent-foreground: oklch(0.96 0.02 80);
+  --sidebar-border: oklch(1 0 0 / 12%);
+  --sidebar-ring: oklch(0.6 0.15 305);
+}
+
+* {
+  border-color: var(--border);
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-feature-settings: "rlig" 1, "calt" 1;
+}
+
+/* Harari geometric pattern background — inspired by Harar Jugol's colorful walls */
+.harari-pattern-bg {
+  background-color: var(--harari-cream);
+  background-image:
+    radial-gradient(circle at 50% 50%, rgba(91, 42, 134, 0.06) 2px, transparent 2px),
+    radial-gradient(circle at 0% 0%, rgba(212, 165, 55, 0.08) 2px, transparent 2px),
+    radial-gradient(circle at 100% 100%, rgba(181, 71, 26, 0.06) 2px, transparent 2px);
+  background-size: 32px 32px;
+  background-position: 0 0, 16px 16px, 16px 16px;
+}
+
+.harari-pattern-purple {
+  background-color: var(--harari-purple);
+  background-image:
+    repeating-linear-gradient(45deg, rgba(212, 165, 55, 0.15) 0px, rgba(212, 165, 55, 0.15) 2px, transparent 2px, transparent 12px),
+    repeating-linear-gradient(-45deg, rgba(212, 165, 55, 0.1) 0px, rgba(212, 165, 55, 0.1) 2px, transparent 2px, transparent 12px);
+}
+
+.harari-stripe {
+  background: linear-gradient(
+    90deg,
+    var(--harari-purple) 0%,
+    var(--harari-purple) 25%,
+    var(--harari-gold) 25%,
+    var(--harari-gold) 50%,
+    var(--harari-terracotta) 50%,
+    var(--harari-terracotta) 75%,
+    var(--harari-green) 75%,
+    var(--harari-green) 100%
+  );
+}
+
+/* Animated arabesque-like border for hero */
+.harari-border-frame {
+  position: relative;
+}
+.harari-border-frame::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 2px;
+  background: linear-gradient(135deg, var(--harari-gold), var(--harari-purple), var(--harari-terracotta), var(--harari-green));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* Geometric star pattern (8-pointed Islamic star motif) */
+.harari-star-pattern {
+  background-color: var(--harari-purple);
+  background-image:
+    radial-gradient(circle at 50% 0%, transparent 12px, var(--harari-gold) 12px, var(--harari-gold) 14px, transparent 14px),
+    radial-gradient(circle at 100% 50%, transparent 12px, var(--harari-cream) 12px, var(--harari-cream) 14px, transparent 14px),
+    radial-gradient(circle at 50% 100%, transparent 12px, var(--harari-gold) 12px, var(--harari-gold) 14px, transparent 14px),
+    radial-gradient(circle at 0% 50%, transparent 12px, var(--harari-cream) 12px, var(--harari-cream) 14px, transparent 14px);
+  background-size: 40px 40px;
+}
+
+/* Decorative dotted Harari textile pattern */
+.harari-textile {
+  background-color: var(--harari-cream);
+  background-image:
+    radial-gradient(circle, var(--harari-purple) 1.5px, transparent 1.5px),
+    radial-gradient(circle, var(--harari-gold) 1px, transparent 1px);
+  background-size: 24px 24px, 24px 24px;
+  background-position: 0 0, 12px 12px;
+}
+
+/* Status pill colors */
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.status-DRAFT { background: oklch(0.95 0.02 80); color: oklch(0.4 0.02 80); }
+.status-SUBMITTED { background: rgba(212, 165, 55, 0.18); color: var(--harari-terracotta); }
+.status-UNDER_REVIEW { background: rgba(30, 58, 95, 0.12); color: var(--harari-indigo); }
+.status-APPROVED { background: rgba(46, 122, 90, 0.16); color: var(--harari-green); }
+.status-REJECTED { background: rgba(181, 71, 26, 0.16); color: var(--harari-terracotta); }
+.status-CERTIFICATE_ISSUED { background: rgba(91, 42, 134, 0.16); color: var(--harari-purple); }
+.status-ACTIVE { background: rgba(46, 122, 90, 0.16); color: var(--harari-green); }
+.status-REVOKED { background: rgba(181, 71, 26, 0.18); color: var(--harari-terracotta); }
+.status-EXPIRED { background: oklch(0.95 0.02 80); color: oklch(0.4 0.02 80); }
+
+/* Smooth fades for view transitions */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.fade-in-up {
+  animation: fadeInUp 0.32s ease-out;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.shimmer {
+  background: linear-gradient(90deg, transparent 0%, rgba(212, 165, 55, 0.2) 50%, transparent 100%);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+/* Custom scrollbar */
+.custom-scroll::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.custom-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scroll::-webkit-scrollbar-thumb {
+  background: var(--harari-purple);
+  border-radius: 9999px;
+  opacity: 0.5;
+}
+.custom-scroll::-webkit-scrollbar-thumb:hover {
+  background: var(--harari-terracotta);
+}
+
+/* Hero gradient with Harari colors */
+.hero-gradient {
+  background:
+    radial-gradient(ellipse at top left, rgba(91, 42, 134, 0.95) 0%, transparent 60%),
+    radial-gradient(ellipse at bottom right, rgba(212, 165, 55, 0.85) 0%, transparent 60%),
+    radial-gradient(ellipse at center, rgba(30, 58, 95, 0.9) 0%, rgba(91, 42, 134, 1) 100%);
+}
+
+/* Decorative star icon (8-pointed Islamic star) */
+.star-8 {
+  clip-path: polygon(
+    50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%,
+    50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%
+  );
+}
+
+/* Certificate background */
+.certificate-bg {
+  background:
+    radial-gradient(ellipse at top, rgba(212, 165, 55, 0.12), transparent 70%),
+    radial-gradient(ellipse at bottom, rgba(91, 42, 134, 0.08), transparent 70%),
+    #FFFBF0;
+}
+
+/* Print-friendly certificate */
+@media print {
+  .no-print { display: none !important; }
+  .certificate-page {
+    box-shadow: none !important;
+    margin: 0 !important;
+    page-break-after: avoid;
+  }
+}
