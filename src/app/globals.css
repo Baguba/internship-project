@@ -6,9 +6,17 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+
+  /* --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-  --font-display: var(--font-display);
+  --font-display: var(--font-display); */
+
+  //changes the font family to Arial for all text elements, ensuring a clean and modern look while maintaining readability across different devices and screen sizes.
+  --font-sans: Arial, sans-serif;
+  --font-mono: Arial, sans-serif;
+  --font-display: Arial, sans-serif;
+
+
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -53,6 +61,8 @@
 
 :root {
   --radius: 0.625rem;
+  /* Base font families */
+  --font-display: Arial, sans-serif;
   /* Harari cultural palette — inspired by the colorful Harar Jugol walls */
   --harari-purple: #5B2A86;       /* deep royal purple from Harari dresses */
   --harari-gold: #D4A537;         /* warm ochre/gold */
@@ -130,6 +140,7 @@
 body {
   background-color: var(--background);
   color: var(--foreground);
+  font-family: Arial, sans-serif;
   font-feature-settings: "rlig" 1, "calt" 1;
 }
 
